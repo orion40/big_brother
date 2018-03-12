@@ -1,0 +1,4 @@
+Commandes à lancer
+rosrun map_server map_server maps/corridor.yaml
+rosrun amcl amcl
+rosrun teleoperation teleoperation_node.py
