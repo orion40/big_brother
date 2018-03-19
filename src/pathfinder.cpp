@@ -82,11 +82,11 @@ class pathfinder {
 	    faire_rotation(); //TODO
 	    calcul_translation(pathToDo[currentpoint],targetpoint); //TODO
 	    //translation_to_do = sqrt( ( goal_to_reach.x * goal_to_reach.x ) + ( goal_to_reach.y * goal_to_reach.y ) );
+	    // Enovie l'info à robair
 	    faire_translation(); //TODO
 	    currentpoint++;
 	    //}
 	}
-
 
 	//CALLBACKS
 	/*//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -123,4 +123,5 @@ int main(int argc, char **argv){
     pathfinder bsObject;
     ros::spin();
     return 0;
+
 }
