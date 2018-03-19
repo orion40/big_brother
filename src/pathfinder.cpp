@@ -37,9 +37,13 @@ class pathfinder {
 	    //geometry_msgs::Point
 
 	    //pour stocker chemin
-	    geometry_msgs::Point point[NBPOINTS];
-	    int pathToDo[PATHLENGTH];
+	    geometry_msgs::Point points[NBPOINTS];
+	    int positionPoints[PATHLENGTH]; // Tableau des points
+	    int pathToDo[PATHLENGTH]; // Tableau des points à parcourir
 	    int currentpoint;
+
+	    geometry_msgs::Point goal_to_reach;
+    	geometry_msgs::Point goal_reached;
 
 
 	public:
@@ -74,18 +78,24 @@ class pathfinder {
 	/*//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
 	void update() {
-	    geometry_msgs::Point targetpoint;
-	    //while(currentpoint < PATHLENGTH-1){
-	    targetpoint = pathToDo[currentpoint+1];
-	    calcul_rotation(pathToDo[currentpoint],targetpoint); //TODO
-	    //rotation_to_do = acos( goal_to_reach.x / translation_to_do );
-	    faire_rotation(); //TODO
-	    calcul_translation(pathToDo[currentpoint],targetpoint); //TODO
-	    //translation_to_do = sqrt( ( goal_to_reach.x * goal_to_reach.x ) + ( goal_to_reach.y * goal_to_reach.y ) );
-	    // Enovie l'info à robair
-	    faire_translation(); //TODO
-	    currentpoint++;
-	    //}
+	    while( currentpoint < PATHLENGTH ){
+		    goal_to_reach = positionPoints[pathToDo[currentpoint+1]];
+		    ROS_INFO("(pathfinder_node) /goal_to_reach : (%f, %f)", goal_to_reach.x, goal_to_reach.y);
+
+		    // Calcul translation
+		    translation_to_do = sqrt( ( goal_to_reach.x * goal_to_reach.x ) + ( goal_to_reach.y * goal_to_reach.y ) );
+
+		    // Calcul rotation
+		    rotation_to_do = acos( goal_to_reach.x / translation_to_do );
+
+		    // Envoie l'info à robair
+		    // FAIRE ROTATION
+		    // FAIRE TRANSLATION
+		    // !!! VOIR DECISION_NODE.CPP !!!
+		    ROS_INFO("(pathfinder_node) /rotation_to_do: %f", rotation_to_do*180/M_PI);
+		    ROS_INFO("(pathfinder_node) /translation_to_do: %f", translation_to_do);
+		    currentpoint++;
+	    }
 	}
 
 	//CALLBACKS
