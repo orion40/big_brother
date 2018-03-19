@@ -18,8 +18,21 @@ private:
     ros::Subscriber sub_scan;
     ros::Subscriber sub_robot_moving;
 
-    ros::Publisher pub_moving_persons_detector;
-    ros::Publisher pub_moving_persons_detector_marker;
+    // communication with rotation_action
+    ros::Publisher pub_rotation_to_do;
+    ros::Subscriber sub_rotation_done;
+
+    // communication with translation_action
+    ros::Publisher pub_translation_to_do;
+    ros::Subscriber sub_translation_done;
+
+    bool cond_rotation;//boolean to check if there is a /rotation_to_do
+    bool cond_translation;//boolean to check if there is a /translation_to_do
+
+    float rotation_to_do;
+    float rotation_done;
+    float translation_to_do;
+    float translation_done;
 
     // to store, process and display laserdata
     //geometry_msgs::Point 
@@ -80,7 +93,7 @@ void update() {
 		faire_translation(); //TODO
 		currentpoint++;
 	//}
-
 }
+
 
 }
