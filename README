@@ -1,4 +1,13 @@
 Commandes à lancer
-rosrun map_server map_server maps/corridor.yaml
-rosrun amcl amcl
-rosrun teleoperation teleoperation_node.py
+source ros.sh 192.168.1.2; rosrun map_server map_server maps/corridor.yaml
+source ros.sh 192.168.1.2; rosrun amcl amcl
+source ros.sh 192.168.1.2; rosrun teleoperation teleoperation_node.py
+
+/amcl_pose est ce qu'on enverra au truc pour la localisation
+
+TODO:
+Dans rviz:
+Ajouter LaserScan, topic /scan
+Ajouter Map, topic /map
+Ajouter PoseWithCovariance, topic /amcl_pose
+Ajouter PoseArray, /particlecloud
