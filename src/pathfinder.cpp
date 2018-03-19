@@ -62,6 +62,9 @@ class pathfinder {
 
             //BOUCLE POUR PASSER D'UN POINT A L'AUTRE
             ros::Rate r(10);// this node will run at 10hz
+
+            // TODO: mettre ros::ok(), et mettre la condition
+            // de boucle dans l'update ?
             while (currentpoint < PATHLENGTH-1) {
                 ros::spinOnce();//each callback is called once to collect new data
                 update();//processing of data
@@ -79,7 +82,9 @@ class pathfinder {
             calcul_rotation(pathToDo[currentpoint],targetpoint); //TODO
             faire_rotation(); //TODO
             calcul_translation(pathToDo[currentpoint],targetpoint); //TODO
+            // Enovie l'info à robair
             faire_translation(); //TODO
+
             currentpoint++;
             //}
         }
