@@ -88,12 +88,20 @@ class pathfinder {
 		    // Calcul rotation
 		    rotation_to_do = acos( goal_to_reach.x / translation_to_do );
 
-		    // Envoie l'info à robair
-		    // FAIRE ROTATION
-		    // FAIRE TRANSLATION
-		    // !!! VOIR DECISION_NODE.CPP !!!
+
+		    // Envoie l'info aux noeuds de rotation et de translation
+
 		    ROS_INFO("(pathfinder_node) /rotation_to_do: %f", rotation_to_do*180/M_PI);
+            std_msgs::Float32 msg_rotation_to_do;
+            // envoie de l'information
+            msg_rotation_to_do.data = rotation_to_do;
+            pub_rotation_to_do.publish(msg_rotation_to_do);
+
 		    ROS_INFO("(pathfinder_node) /translation_to_do: %f", translation_to_do);
+            std_msgs::Float32 msg_translation_to_do;
+            msg_translation_to_do.data = translation_to_do;
+            pub_translation_to_do.publish(msg_translation_to_do);
+
 		    currentpoint++;
 	    }
 	}
