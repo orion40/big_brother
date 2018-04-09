@@ -85,10 +85,12 @@ class pathfinder {
                 // 4: 9.4  7  -1.3
 
                 currentpoint = 0;
+                /*
                 for (int i = 0; i < PATHLENGTH; ++i)
                 {
                     pathToDo[i]=i % NBPOINTS;
                 }
+                */
 
                 // communication with rotation_action
                 pub_rotation_to_do = n.advertise<std_msgs::Float32>("rotation_to_do", 0);
