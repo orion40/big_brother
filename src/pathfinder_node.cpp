@@ -43,11 +43,13 @@ class pathfinder {
 	    int pathToDo[PATHLENGTH]; // Tableau des points à parcourir
 	    int currentpoint;
 
+
         geometry_msgs::Point goal_to_reach;
         geometry_msgs::Point goal_reached;
 
         bool new_rotation_done;
         bool new_translation_done;
+
 
     public:
         pathfinder() {
@@ -84,10 +86,31 @@ class pathfinder {
             // 4: 9.4  7  -1.3
 
             currentpoint = 0;
+            /*
             for (int i = 0; i < PATHLENGTH; ++i)
             {
                 pathToDo[i]=i % NBPOINTS;
             }
+            */
+
+            // communication with rotation_action
+            pub_rotation_to_do = n.advertise<std_msgs::Float32>("rotation_to_do", 0);
+            sub_rotation_done = n.subscribe("rotation_done", 1, &pathfinder::rotation_doneCallback, this);
+            cond_rotation = false;
+
+            // communication with translation_action
+            pub_translation_to_do = n.advertise<std_msgs::Float32>("translation_to_do", 0);
+            sub_translation_done = n.subscribe("translation_done", 1, &pathfinder::translation_doneCallback, this);
+            cond_translation = false;
+
+            //BOUCLE POUR PASSER D'UN POINT A L'AUTRE
+            ros::Rate r(10);// this node will run at 10hz
+            while (currentpoint < PATHLENGTH-1) {
+                ros::spinOnce();//each callback is called once to collect new data
+                update();//processing of data
+                r.sleep();//we wait if the processing (ie, callback+update) has taken less than 0.1s (ie, 10 hz)
+            }
+
 
             // communication with rotation_action
             pub_rotation_to_do = n.advertise<std_msgs::Float32>("rotation_to_do", 0);
