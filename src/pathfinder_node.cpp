@@ -51,10 +51,60 @@ class pathfinder {
 
     public:
         pathfinder() {
+            pathToDo[0] = 1;
+            pathToDo[1] = 2;
+            pathToDo[2] = 1;
+            pathToDo[3] = 3;
+            pathToDo[4] = 4;
+            pathToDo[5] = 1; // Tableau des points à parcourir
+            geometry_msgs::Point p1;
+            p1.x = 13.2;
+            p1.y = -8.6;
+            p1.z = 0.4;
+            geometry_msgs::Point p2;
+            p2.x = 26;
+            p2.y = -4.2;
+            p2.z = -2.7;
+            geometry_msgs::Point p3;
+            p3.x = 18.1;
+            p3.y = -24;
+            p3.z = 1.8;
+            geometry_msgs::Point p4;
+            p4.x = 9.4;
+            p4.y = 7;
+            p4.z = -1.3;
+
+            positionPoints[0] = p1;
+            positionPoints[1] = p2;
+            positionPoints[2] = p3;
+            positionPoints[3] = p4;
+            // 1: 13.2  -8.6  0.4
+            // 2: 26  -4.2  -2.7
+            // 3: 18.1  -24  1.8
+            // 4: 9.4  7  -1.3
+
             currentpoint = 0;
             for (int i = 0; i < PATHLENGTH; ++i)
             {
                 pathToDo[i]=i % NBPOINTS;
+            }
+
+            // communication with rotation_action
+            pub_rotation_to_do = n.advertise<std_msgs::Float32>("rotation_to_do", 0);
+            sub_rotation_done = n.subscribe("rotation_done", 1, &pathfinder::rotation_doneCallback, this);
+            cond_rotation = false;
+
+            // communication with translation_action
+            pub_translation_to_do = n.advertise<std_msgs::Float32>("translation_to_do", 0);
+            sub_translation_done = n.subscribe("translation_done", 1, &pathfinder::translation_doneCallback, this);
+            cond_translation = false;
+
+            //BOUCLE POUR PASSER D'UN POINT A L'AUTRE
+            ros::Rate r(10);// this node will run at 10hz
+            while (currentpoint < PATHLENGTH-1) {
+                ros::spinOnce();//each callback is called once to collect new data
+                update();//processing of data
+                r.sleep();//we wait if the processing (ie, callback+update) has taken less than 0.1s (ie, 10 hz)
             }
 
             // communication with rotation_action
