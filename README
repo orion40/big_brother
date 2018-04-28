@@ -11,3 +11,5 @@ Ajouter LaserScan, topic /scan
 Ajouter Map, topic /map
 Ajouter PoseWithCovariance, topic /amcl_pose
 Ajouter PoseArray, /particlecloud
+
+./remise_a_zero.sh

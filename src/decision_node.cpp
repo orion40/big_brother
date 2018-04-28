@@ -44,7 +44,7 @@ public:
 
 decision() {
 
-    // communication with moving_persons_detector or person_tracker
+    // communication with pathfinder
     pub_goal_reached = n.advertise<geometry_msgs::Point>("goal_reached", 1);
     sub_goal_to_reach = n.subscribe("goal_to_reach", 1, &decision::goal_to_reachCallback, this);
 
