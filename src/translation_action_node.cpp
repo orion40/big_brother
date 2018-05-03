@@ -90,8 +90,8 @@ translation_action() {
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
 void update() {
 
-    //ROS_INFO("new_odom: %i, cond_translation: %i, init_obstacle: %i", new_odom, cond_translation, init_obstacle);
-             // we receive a new /translation_to_do
+    ROS_INFO("new_odom: %i, cond_translation: %i, init_obstacle: %i", new_odom, cond_translation, init_obstacle);
+    // we receive a new /translation_to_do
     if ( new_translation_to_do && new_odom ) {
         new_translation_to_do = false;
         ROS_INFO("\n(translation_action_node) processing the /translation_to_do received from the decision node");
